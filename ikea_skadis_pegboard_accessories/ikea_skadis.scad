@@ -466,6 +466,62 @@ module skadis_u_holder(d = 16, all_pegs = all_pegs, fullfill = fullfill, retaine
     }
 }
 
+
+
+/* A Squared holder takes up to five parameters:
+ * 1. l (numerical) - the length of th straight hook
+ * 2. w (numerical) - the separation between hooks 
+ * 3. all_pegs (boolean)
+ * 4. fullfill (boolean)
+ * 5. retainer (boolean)
+ */
+
+module skadis_squared_holder(l = 60, w = 20,  all_pegs = all_pegs, fullfill = fullfill, retainer = retainer) {
+    
+    
+    
+        union() {
+            translate([0, -(2*pw)/2, pw/2]) {
+                cube(size = [w+2*pw, 2*pw, pw], center = true);
+            }
+            
+            translate([(w+pw)/2, 0, 0]) {    
+               union() {
+                    translate([-pt/2, -(l+2*pw), 0]) {
+                        cube(size = [pt, l+2*pw, pw]);
+                    }
+                    translate([-pt/2, -(l+1.5*pw), pw]) {
+                        rotate([0, 90, 0]) {
+                            cylinder(h = pt, d = pw, center = false);
+                    }
+                 }
+              }
+          }
+                 
+          translate([(w+pw)/-2, 0, 0]) {    
+            union() {
+                translate([-pt/2, -(l+2*pw), 0]) {
+                    cube(size = [pt, l+2*pw, pw]);
+                    }
+                translate([-pt/2, -(l+1.5*pw), pw]) {
+                    rotate([0, 90, 0]) {
+                        cylinder(h = pt, d = pw, center = false);
+                   }
+                }
+            }
+            
+        }
+          
+              
+        skadis_pegs_position(length = w+2*pw, all_pegs = all_pegs) skadis_peg(fullfill = fullfill, retainer = retainer);
+    }
+    
+}
+
+
+
+
+
 /* A plier takes up to six parameters:
  * 1. l (numerical) - length
  * 2. w (numerical) - width
@@ -947,3 +1003,7 @@ module skadis_bits_serie(h = 28, d = 2, step = 0, n = 12, facets = 36, angle = 0
 //translate([0, 130, 0]) skadis_bits_serie(h = 32, d = 1.2, step = 1.2, tolerance2 = 3.2, n = 9, compact = false);
 //translate([0, 190, 0]) skadis_bits_serie(h = 28, d = 2.3, step = 1.5, n = 8, facets = 6, angle = 30, bottom = false, compact = false, tolerance2 = 0.2);
 //translate([0, 260, 0]) skadis_bits_serie(h = 18, d = 14.6, step = 2, n = 6, facets = 4, angle = 45);
+
+
+
+skadis_squared_holder(l = 7, w = 15);
